@@ -3,22 +3,20 @@ import { useParams } from "react-router-dom";
 import { Row, Col, Button, Image, ListGroup, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "../components/Rating";
-import axios from 'axios'
+import axios from "axios";
 const ProductScreen = () => {
   const { id: productId } = useParams();
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/products/${productId}`)
       .then((res) => {
-        debugger;
         setSelectedProduct(res.data);
       })
       .catch((err) => {
-        debugger;
         console.log("ERROR =====", err);
       });
   }, []);
-  
+
   const [selectedProduct, setSelectedProduct] = useState({});
   return (
     <>
