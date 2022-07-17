@@ -15,7 +15,7 @@ const ProductScreen = () => {
       .catch((err) => {
         console.log("ERROR =====", err);
       });
-  }, []);
+  }, [productId]);
 
   const [selectedProduct, setSelectedProduct] = useState({});
   return (

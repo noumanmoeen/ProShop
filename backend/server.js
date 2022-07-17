@@ -1,9 +1,9 @@
-const express = require("express");
+import express from "express";
+import dotenv from "dotenv";
+import products from "./data/products.js";
+import cors from "cors";
 
-const products = require("./data/products.js");
-var cors = require('cors');
-
-
+dotenv.config();
 const app = express();
 
 app.use(cors());
@@ -15,10 +15,16 @@ app.get("/api/products", (req, res) => {
   res.json(products);
 });
 app.get("/api/products/:id", (req, res) => {
-
-    const selectedProduct = products.find(item => item._id === req.params.id)
+  const selectedProduct = products.find((item) => item._id === req.params.id);
 
   res.json(selectedProduct);
 });
 
-app.listen(5000, console.log("Hello ths server is running"));
+const PORT = process.env.PORT || 5000;
+
+app.listen(
+  PORT,
+  console.log(
+    `Hello ths server is running on ${PORT} IN ${process.env.NODE_ENV}`
+  )
+);
