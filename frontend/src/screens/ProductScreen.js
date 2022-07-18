@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Row, Col, Button, Image, ListGroup, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "../components/Rating";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { productDetailsAction } from "../store/actions/productsActions";
 const ProductScreen = () => {
   const { id: productId } = useParams();
+  const dispatch = useDispatch();
+  const selectedProduct =
+    useSelector((state) => state.productDetails.product) || {};
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/products/${productId}`)
-      .then((res) => {
-        setSelectedProduct(res.data);
-      })
-      .catch((err) => {
-        console.log("ERROR =====", err);
-      });
-  }, [productId]);
+    dispatch(productDetailsAction(productId));
+  }, [productId ,dispatch]);
 
-  const [selectedProduct, setSelectedProduct] = useState({});
+  //   setObject((prevState) => ({
+  //     ...prevState,
+  //     secondKey: 'value',
+  //   }));
   return (
     <>
       <Link className="btn btn-light my -3" to={"/"}>

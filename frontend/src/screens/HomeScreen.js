@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Products from "../components/Products";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { listProductsAction } from "../store/actions/productsActions";
 
 const HomeScreen = () => {
-  const [products, setproducts] = useState([]);
+  //   const [products, setproducts] = useState([]);
+  const products = useSelector((state) => state.productsList.products) || [];
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/products")
-      .then((res) => {
-        setproducts(res.data);
-      })
-      .catch((err) => {
-        console.log("ERROR =====", err);
-      });
-  }, []);
+    dispatch(listProductsAction());
+  }, [dispatch]);
 
   return (
     <>
